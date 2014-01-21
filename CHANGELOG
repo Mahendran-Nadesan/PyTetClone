@@ -1,0 +1,34 @@
+PyTetClone
+Changelog
+
+01-05-2014		Commit 1
+
+- 	Added README
+
+01-05-2014		Project Setup						
+
+- 	Added PyScripter project file, .git files.
+
+01-16-2014		Commit 2 - making tetraminoes		
+
+- 	Added MainScreen.py, 
+- 	Got basic tetraminoes working in MainScreen.py.
+
+01-20-2014		Commit 3 - Basic classes, board/tetraminoes, basic movement
+
+- 	Added Board.py, Tetras.py, Pieces.py
+- 	Board and Tetras classes have creation and draw methods.
+- 	MainScreen.py calls classes, and initiates downward movement.
+
+01-21-2014		Commit 4 - 
+
+- 	Added this CHANGELOG
+- 	Board has update method, which includes the current shape's position, and draws from the board 
+	class (Tetra no longer has a draw method).
+-	Shapes now get checked for collision with the bottom of the board (still need shape-shape 
+	collision).
+- 	Added Scraps.py for code of potential use.
+- 	Cleaned up and commented code.
+- 	Reminder to make a second version that uses 2 boards, one for bg, one for accumulating shapes.
+	
+			
