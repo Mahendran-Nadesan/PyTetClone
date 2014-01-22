@@ -20,7 +20,7 @@ Changelog
 - 	Board and Tetras classes have creation and draw methods.
 - 	MainScreen.py calls classes, and initiates downward movement.
 
-01-21-2014		Commit 4 - 
+01-21-2014		Commit 4 - Reduced Draw methods, simple collision checks
 
 - 	Added this CHANGELOG
 - 	Board has update method, which includes the current shape's position, and draws from the board 
@@ -31,4 +31,7 @@ Changelog
 - 	Cleaned up and commented code.
 - 	Reminder to make a second version that uses 2 boards, one for bg, one for accumulating shapes.
 	
-			
+01-22-2014		Commit 5 - More collision checks
+
+- 	Board now accumulates shapes along y-axis.
+- 	Decided to reconstruct Tetras and Board class, so that shapes are just coordinate lists.

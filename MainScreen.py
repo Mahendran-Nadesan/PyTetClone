@@ -15,7 +15,7 @@ WIDTH = 300
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)	
-FPS = 2
+FPS = 1
 BLOCK_SIZE = 30
 
 def main_window():

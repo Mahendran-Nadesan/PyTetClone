@@ -69,6 +69,7 @@ class board:
 		# find some way to delete them, but not delete accumulations
 			
 	def collision(self, shape, height):
+		# if any collision, add the coords to permanents.
 		
 		# check for collision with bottom
 		if shape.currenty - ((3-shape.maxy)*30) == height:
@@ -76,7 +77,7 @@ class board:
 			for i, j in enumerate(self.board_colours):
 				for k, l in enumerate(j):							# [i][k] are the indices
 					#self.board[i][k] = 1
-					self.board_colours[i][k] = self.inner_colour 	# reset them all to blue (use commented method below?)
+					# self.board_colours[i][k] = self.inner_colour 	# reset them all to blue (use commented method below?)
 					for m in self.board_filled[0]:
 						if m[0] == i and m[1] == k:					# check if the values in list are equal to the array indices
 							self.board[i][k] = 0
@@ -92,17 +93,32 @@ class board:
 			return True
 			
 		elif shape.currenty - ((3-shape.maxy)*30) < height:
+			print "entering other loop"
+			print "current x: ", shape.currentx/30
 			for i, j in enumerate(self.board):
+				#print "i is : ", i
+				#print "j is : ", j
 				if 0 in j:
-					print "THIS ROW HAS A ZERO"
-					print i
-					if ((shape.currenty/30)+1)==i:
-						self.permanents.append(shape.coord_list)
-						return True
-					else:
-						return False
-				else:
-					return False
+					#print "Zeros in board"
+					#print "current y val at ", (shape.currenty/30)
+					if ((shape.currentx/30)-(3-shape.maxx))==j.index(0):
+						print "entering x checker"
+						print "the zero is at ", j.index(0)
+						if ((shape.currenty/30)-(3-shape.maxy))==i: # and ((shape.currentx/30)-(3-shape.maxx))==j.index(0):
+							self.permanents.append(shape.coord_list)
+						#print "It worked!"
+							for n, o in enumerate(self.permanents):
+								for p in o:
+									self.board_colours[p[0]][p[1]] = (255, 0, 0)
+									self.board[p[0]][p[1]] = 0
+						#		print "n, o, p"
+						#		print n, o, p[0], p[1]
+								return True
+							else:
+								return False
+						else:
+							return False
+			return False
 		#	for i, j in enumerate(self.permanents):
 		#		for k in j:
 		#			if shape.currenty - ((3-shape.maxy)*30) == k[0]:
@@ -117,6 +133,15 @@ class board:
 			print "False"
 			return False
 		
-		
+	#def test_func(self, shape):
+	#	y = (shape.currenty/30)-(3-shape.maxy)
+	#	x = (shape.currentx/30)-(3-shape.maxx)
+		#for i, j in enumerate(self.board):
+		#	for k, l in enumerate(j):
+	#	for row in range(y, y+4):
+	#		for column in range(x, x+4):
+	#			if y ==
+				
+			
 	
 	
