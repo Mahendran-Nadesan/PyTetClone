@@ -12,136 +12,72 @@ class board:
 		self.outer_colour = outer_colour
 		self.board = []
 		self.board_colours = []
-		self.board_filled = []
-		self.collided = False
-		self.permanents = []
+		# self.collided = False
 		# create board and board colour array
 		for i in range(self.num_rows):
 			self.board.append([1] * self.num_columns)
 			self.board_colours.append([self.inner_colour] * self.num_columns)
+	
+	def __str__(self):
+		pass
 		
 	def draw(self):
+		self.convert()
 		for row in range(self.num_rows):
-			y = 30 * (row)										# add BLOCK_SIZE instead of 30
 			for column in range(self.num_columns):
-				x = 30 * (column)								# add BLOCK_SIZE instead of 30
-				#if self.board[row][column]==1:
-				pygame.draw.rect(self.surf, self.outer_colour, (x, y, 30, 30))
-				pygame.draw.rect(self.surf, self.board_colours[row][column], (x+2, y+2, 26, 26)) # add a margin variable
-				#else:
-				#	pass
-		
+				pygame.draw.rect(self.surf, self.outer_colour, (self.boardcoords[row][column][1], self.boardcoords[row][column][0], 30, 30))
+				pygame.draw.rect(self.surf, self.drawing_colours[row][column], (self.boardcoords[row][column][1]+2, self.boardcoords[row][column][0]+2, 26, 26)) # add a margin variable
+				
 	def get_board(self):
 		return self.board
+		
+	def convert(self):
+		self.boardcoords = []
+		for row in range(self.num_rows):
+			self.boardcoords.append([])
+			for column in range(self.num_columns):
+				self.boardcoords[row].append([row*30, column*30])
 	
 	def update(self, shape):
-		# add list coords of current shape to board list
-		print shape.currenty
-		self.board_filled = []
-		self.board_filled.append(shape.coord_list)
-		# change the colour of the appropriate tiles
-		# I dislike this method - find a different way
-		for i, j in enumerate(self.board_colours):
-			for k, l in enumerate(j):							# [i][k] are the indices
-				#self.board[i][k] = 1
-				self.board_colours[i][k] = self.inner_colour 	# reset them all to blue (use commented method below?)
-				for m in self.board_filled[0]:
-					if m[0] == i and m[1] == k:					# check if the values in list are equal to the array indices
-						#self.board[i][k] = 0
-						self.board_colours[i][k] = shape.inner_colour	# change to shape's colour
-					else:
-						pass
-				if len(self.permanents)==0:
-					pass
-				else:
-					for n, o in enumerate(self.permanents):
-						for p in o:
-							self.board_colours[p[0]][p[1]] = (255, 0, 0)
-						#if n[0] == i and n[1] == k:
-						#	self.board[i][k] = 0
-						#	self.board_colours[i][k] = (255, 0, 0)
+		self.drawing_board = []
+		self.drawing_colours = []
 		
+		# Reassign, as original board
+		for row in range(self.num_rows):
+			self.drawing_board.append([1]*self.num_columns)
+			self.drawing_colours.append([self.inner_colour]*self.num_columns)
 		
-		# other method for resetting colours to blue
-		# for colours in range(self.num_rows):
-			# self.board_colours.append([self.inner_colour] * self.num_columns)
+		# Change board assignments (i.e. if 0s exist)
+		for i, j in enumerate(self.board):
+			for k, l in enumerate(j):
+				if self.board[i][k] == 0:
+					self.drawing_board[i][k] = 0
+					self.drawing_colours[i][k] = self.board_colours[i][k]
 		
-		# find some way to delete them, but not delete accumulations
-			
-	def collision(self, shape, height):
-		# if any collision, add the coords to permanents.
-		
-		# check for collision with bottom
-		if shape.currenty - ((3-shape.maxy)*30) == height:
-			self.permanents.append(shape.coord_list)
-			for i, j in enumerate(self.board_colours):
-				for k, l in enumerate(j):							# [i][k] are the indices
-					#self.board[i][k] = 1
-					# self.board_colours[i][k] = self.inner_colour 	# reset them all to blue (use commented method below?)
-					for m in self.board_filled[0]:
-						if m[0] == i and m[1] == k:					# check if the values in list are equal to the array indices
-							self.board[i][k] = 0
-							self.board_colours[i][k] = shape.inner_colour	# change to shape's colour
-						else:
-							pass
-					if len(self.permanents)==0:
-						pass
-					else:
-						for n, o in enumerate(self.permanents):
-							for p in o:
-								self.board_colours[p[0]][p[1]] = (255, 0, 0)
-			return True
-			
-		elif shape.currenty - ((3-shape.maxy)*30) < height:
-			print "entering other loop"
-			print "current x: ", shape.currentx/30
-			for i, j in enumerate(self.board):
-				#print "i is : ", i
-				#print "j is : ", j
-				if 0 in j:
-					#print "Zeros in board"
-					#print "current y val at ", (shape.currenty/30)
-					if ((shape.currentx/30)-(3-shape.maxx))==j.index(0):
-						print "entering x checker"
-						print "the zero is at ", j.index(0)
-						if ((shape.currenty/30)-(3-shape.maxy))==i: # and ((shape.currentx/30)-(3-shape.maxx))==j.index(0):
-							self.permanents.append(shape.coord_list)
-						#print "It worked!"
-							for n, o in enumerate(self.permanents):
-								for p in o:
-									self.board_colours[p[0]][p[1]] = (255, 0, 0)
-									self.board[p[0]][p[1]] = 0
-						#		print "n, o, p"
-						#		print n, o, p[0], p[1]
-								return True
-							else:
-								return False
-						else:
-							return False
-			return False
-		#	for i, j in enumerate(self.permanents):
-		#		for k in j:
-		#			if shape.currenty - ((3-shape.maxy)*30) == k[0]:
-		#				self.board_colours[k[0]][k[1]] = (255, 0, 0)
-					
-			# self.board
-		#	print "end reached"
-		#	print shape.currenty
-		#	print shape.coord_list
-			
-		else:
-			print "False"
-			return False
-		
-	#def test_func(self, shape):
-	#	y = (shape.currenty/30)-(3-shape.maxy)
-	#	x = (shape.currentx/30)-(3-shape.maxx)
-		#for i, j in enumerate(self.board):
-		#	for k, l in enumerate(j):
-	#	for row in range(y, y+4):
-	#		for column in range(x, x+4):
-	#			if y ==
+		# Add shape assignments
+		for i, j in enumerate(shape.shape):
+			if self.drawing_board[j[0]][j[1]] == 1:
+				self.drawing_board[j[0]][j[1]] = 0
+				self.drawing_colours[j[0]][j[1]] = shape.inner_colour
 				
-			
+	def collision(self, shape):
+		# check for 2 things
+		# check for collision with bottom
+		for y, coords in enumerate(shape.shape):
+			if coords[0] == (self.num_rows - 1):
+				for i, j in enumerate(shape.shape):
+					self.board[j[0]][j[1]] = 0
+					self.board_colours[j[0]][j[1]] = shape.inner_colour
+				return True
 	
+		# check for collision with other pieces
+		for y, coords in enumerate(shape.shape):
+			if self.board[coords[0]+1][coords[1]] == 0:
+				for i, j in enumerate(shape.shape):
+					self.board[j[0]][j[1]] = 0
+					self.board_colours[j[0]][j[1]] = shape.inner_colour
+				return True
+		
+			
+		return False
 	

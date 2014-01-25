@@ -9,7 +9,12 @@ from Tetras import tetras
 from Board import board
 from pygame.locals import *
 
-
+COLOURS = [
+(255, 255, 255), 
+(255, 0, 0),
+(0, 255, 0),
+(255, 255, 0),
+(0, 255, 255)]
 HEIGHT = 600
 WIDTH = 300
 BLACK = (0, 0, 0)
@@ -24,7 +29,7 @@ def main_window():
 	fps_clock = pygame.time.Clock()
 	main_win = pygame.display.set_mode((WIDTH, HEIGHT))
 	new_board = board(main_win, (HEIGHT/BLOCK_SIZE), (WIDTH/BLOCK_SIZE), BLUE, BLACK)
-	current_shape = tetras(main_win, 30, 30, YELLOW, BLACK)
+	current_shape = tetras(main_win, 30, 30, COLOURS[random.randrange(5)], BLACK)
 	
 	while True:
 		print "Main Loop starts"
@@ -33,19 +38,20 @@ def main_window():
 		
 		#if current_shape.currenty - ((3 - current_shape.maxy) * 30) < (HEIGHT): # this needs to be modified to account for the I tetra when horizontal (3 empty rows = 90)
 			#print current_shape.maxy
-		current_shape.update()
+		current_shape.move_down()
 		new_board.update(current_shape)
-		if new_board.collision(current_shape, HEIGHT) == False:
-			print "Stuff's happening!!"
-			print "Permanents: ", new_board.permanents
+		if new_board.collision(current_shape) == False:
+		#	print "Stuff's happening!!"
+			
+		
 			new_board.draw()
 			
 		else:
-			print "Nothing doing!!"
-			print new_board.get_board()
-			current_shape = tetras(main_win, 30, 30, YELLOW, BLACK)
-			print "Permanents: ", new_board.permanents
-			new_board.draw()	
+		#	print "Nothing doing!!"
+		#	print new_board.get_board()
+			current_shape = tetras(main_win, 30, 30, COLOURS[random.randrange(5)], BLACK)
+			
+		new_board.draw()	
 		
 		pygame.display.update()
 		

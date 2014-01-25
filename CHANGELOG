@@ -35,3 +35,12 @@ Changelog
 
 - 	Board now accumulates shapes along y-axis.
 - 	Decided to reconstruct Tetras and Board class, so that shapes are just coordinate lists.
+
+01-23-2014		Commit 6 - Redone classes
+01-25-2014
+
+- Created OldBoard.py and OldTetras.py - not going to branch yet.
+- Added movement methods (not control/input methods)
+- Got collisions working better (i.e. y and x axis) - is there a better implementation?
+- Added some colours
+- Cleaned up extraneous code
