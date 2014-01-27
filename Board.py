@@ -72,7 +72,7 @@ class board:
 	
 		# check for collision with other pieces
 		for y, coords in enumerate(shape.shape):
-			if self.board[coords[0]+1][coords[1]] == 0:
+			if self.board[coords[0]+1][coords[1]] == 0:	# might need to do something for coords as well
 				for i, j in enumerate(shape.shape):
 					self.board[j[0]][j[1]] = 0
 					self.board_colours[j[0]][j[1]] = shape.inner_colour

@@ -39,8 +39,17 @@ Changelog
 01-23-2014		Commit 6 - Redone classes
 01-25-2014
 
-- Created OldBoard.py and OldTetras.py - not going to branch yet.
-- Added movement methods (not control/input methods)
-- Got collisions working better (i.e. y and x axis) - is there a better implementation?
-- Added some colours
-- Cleaned up extraneous code
+- 	Created OldBoard.py and OldTetras.py - not going to branch yet.
+- 	Added movement methods (not control/input methods)
+- 	Got collisions working better (i.e. y and x axis) - is there a better implementation?
+- 	Added some colours
+- 	Cleaned up extraneous code
+
+01-26-2014		Commit 7 - Fixed basic timer issue
+01-27-2014
+
+- 	Added control/input stuff as function in MainScreen.py (fix later?)
+- 	Added a USEREVENT timer to move tetraminoes down independently of left/right/(later, rotate and 
+	drop) keypresses.
+- 	To do: make sure game doesn't crash when I attempt to move off the regular board.	
+	
